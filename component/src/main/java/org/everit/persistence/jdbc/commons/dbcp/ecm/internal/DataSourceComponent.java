@@ -34,6 +34,7 @@ import org.everit.osgi.ecm.component.ServiceHolder;
 import org.everit.osgi.ecm.extender.ECMExtenderConstants;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.PriorityConstants;
+import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
 import aQute.bnd.annotation.headers.ProvideCapability;
@@ -87,16 +88,17 @@ public class DataSourceComponent extends AbstractComponent {
    */
   @Deactivate
   public void deactivate() {
+    String servicePid = "";
     if (serviceRegistration != null) {
+      ServiceReference<DataSource> serviceReference = serviceRegistration.getReference();
+      servicePid = (String) serviceReference.getProperty("service.pid");
       serviceRegistration.unregister();
     }
     if (basicDataSource != null) {
       try {
         basicDataSource.close();
       } catch (SQLException e) {
-        throw new RuntimeException("Error during closing data source at component ");
-        // FIXME
-        // + componentProperties.get("service.pid"));
+        throw new RuntimeException("Error during closing data source at component " + servicePid);
       }
     }
   }
