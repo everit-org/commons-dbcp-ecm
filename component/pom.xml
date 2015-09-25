@@ -34,7 +34,7 @@
   <packaging>bundle</packaging>
 
   <properties>
-    <projectpath>jdbc-dsf-ecm</projectpath>
+    <projectpath>commons-dbcp-ecm</projectpath>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
