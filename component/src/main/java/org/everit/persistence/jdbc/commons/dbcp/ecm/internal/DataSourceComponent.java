@@ -27,8 +27,8 @@ import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ServiceRef;
-import org.everit.osgi.ecm.annotation.attribute.StringAttribute;
-import org.everit.osgi.ecm.annotation.attribute.StringAttributes;
+import org.everit.osgi.ecm.annotation.attribute.IntegerAttribute;
+import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.component.ServiceHolder;
 import org.everit.osgi.ecm.extender.ECMExtenderConstants;
@@ -47,8 +47,8 @@ import aQute.bnd.annotation.headers.ProvideCapability;
     description = "A pooled datasource component based on the commons-dbcp implementation.")
 @ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
     value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
-@StringAttributes({
-    @StringAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT,
+@IntegerAttributes({
+    @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
         priority = PriorityConstants.PRIORITY_08, label = "Default query timeout",
         description = "Set the default query timeout that will be used for Statements created "
             + "from this connection. null  means that the driver default will be used.") })

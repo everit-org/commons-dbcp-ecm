@@ -66,15 +66,15 @@ import org.osgi.framework.Constants;
                 label = "Serializable")
         }),
     @StringAttribute(attributeId = DSFConstants.ATTR_DEFAULT_CATALOG,
-        priority = PriorityConstants.PRIORITY_07, label = "Default catalog",
+        priority = PriorityConstants.PRIORITY_07, defaultValue = "", label = "Default catalog",
         description = "The default \"catalog\" of connections created by this pool."),
     @StringAttribute(attributeId = DSFConstants.ATTR_VALIDATION_QUERY,
-        priority = PriorityConstants.PRIORITY_27, label = "Validation query",
+        priority = PriorityConstants.PRIORITY_27, defaultValue = "", label = "Validation query",
         description = "The SQL query that will be used to validate connections from this pool "
             + "before returning them to the caller.  If specified, this query MUST be an "
             + "SQL SELECT statement that returns at least one row."),
     @StringAttribute(attributeId = DSFConstants.ATTR_JMX_NAME,
-        priority = PriorityConstants.PRIORITY_36, label = "JMX name",
+        priority = PriorityConstants.PRIORITY_36, defaultValue = "", label = "JMX name",
         description = "The JMX name that has been requested for this DataSource. If the requested "
             + "name is not valid, an alternative may be chosen. This DataSource will attempt to "
             + "register itself using this name. If another component registers this DataSource "
@@ -239,7 +239,7 @@ public abstract class AbstractComponent {
 
   protected String[] connectionInitSqls;
 
-  @StringAttribute(attributeId = DSFConstants.ATTR_CONNECTION_INIT_SQLS,
+  @StringAttribute(attributeId = DSFConstants.ATTR_CONNECTION_INIT_SQLS, defaultValue = "",
       priority = PriorityConstants.PRIORITY_29, label = "Connection init SQLs",
       description = "The list of SQL statements executed when a physical connection is "
           + "first created.")
