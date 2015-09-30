@@ -13,14 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.everit.persistence.jdbc.commons.dbcp.ecm;
+package org.everit.persistence.jdbc.commons.dbcp.ecm.internal;
 
 /**
- * Constants of priority.
+ * Constants of Data Source priority.
  */
-public final class AttributePriority {
+public final class DataSourceAttributePriority {
 
-  public static final int P01_XA_DATASOURCE_TARGET = 1;
+  public static final int P01_DATASOURCE_TARGET = 1;
 
   public static final int P02_DEFAULT_AUTO_COMMIT = 2;
 
@@ -33,6 +33,8 @@ public final class AttributePriority {
   public static final int P06_DEFAULT_TRANSACTION_ISOLATION = 6;
 
   public static final int P07_DEFAULT_CATALOG = 7;
+
+  public static final int P08_DEFAULT_QUERY_TIMEOUT = 8;
 
   public static final int P09_MAX_TOTAL = 9;
 
@@ -92,8 +94,6 @@ public final class AttributePriority {
 
   public static final int P37_TRANSACTION_MANAGER_TARGET = 37;
 
-  public static final int P08_DEFAULT_QUERY_TIMEOUT = 8;
-
-  private AttributePriority() {
+  private DataSourceAttributePriority() {
   }
 }
