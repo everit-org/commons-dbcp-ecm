@@ -32,8 +32,8 @@ import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.component.ServiceHolder;
 import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.persistence.jdbc.commons.dbcp.ecm.AttributePriority;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
-import org.everit.persistence.jdbc.commons.dbcp.ecm.PriorityConstants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
@@ -49,7 +49,7 @@ import aQute.bnd.annotation.headers.ProvideCapability;
     value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @IntegerAttributes({
     @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
-        priority = PriorityConstants.PRIORITY_08, label = "Default query timeout",
+        priority = AttributePriority.P08_DEFAULT_QUERY_TIMEOUT, label = "Default query timeout",
         description = "Set the default query timeout that will be used for Statements created "
             + "from this connection. null  means that the driver default will be used.") })
 public class DataSourceComponent extends AbstractComponent {
@@ -104,7 +104,8 @@ public class DataSourceComponent extends AbstractComponent {
   }
 
   @ServiceRef(attributeId = DSFConstants.ATTR_DATASOURCE_TARGET, defaultValue = "",
-      attributePriority = PriorityConstants.PRIORITY_01, label = "DataSource service filter",
+      attributePriority = AttributePriority.P01_XA_DATASOURCE_TARGET,
+      label = "DataSource service filter",
       description = "The OSGi filter expression to select the right non-pooled DataSource.")
   public void setDataSource(final ServiceHolder<DataSource> serviceHolder) {
     dataSource = serviceHolder.getService();
