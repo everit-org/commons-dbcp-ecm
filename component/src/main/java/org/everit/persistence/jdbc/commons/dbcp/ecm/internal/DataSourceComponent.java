@@ -27,13 +27,12 @@ import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ServiceRef;
-import org.everit.osgi.ecm.annotation.attribute.StringAttribute;
-import org.everit.osgi.ecm.annotation.attribute.StringAttributes;
+import org.everit.osgi.ecm.annotation.attribute.IntegerAttribute;
+import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.component.ServiceHolder;
 import org.everit.osgi.ecm.extender.ECMExtenderConstants;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
-import org.everit.persistence.jdbc.commons.dbcp.ecm.PriorityConstants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
@@ -47,9 +46,10 @@ import aQute.bnd.annotation.headers.ProvideCapability;
     description = "A pooled datasource component based on the commons-dbcp implementation.")
 @ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
     value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
-@StringAttributes({
-    @StringAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT,
-        priority = PriorityConstants.PRIORITY_08, label = "Default query timeout",
+@IntegerAttributes({
+    @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
+        priority = DataSourceAttributePriority.P08_DEFAULT_QUERY_TIMEOUT,
+        label = "Default query timeout",
         description = "Set the default query timeout that will be used for Statements created "
             + "from this connection. null  means that the driver default will be used.") })
 public class DataSourceComponent extends AbstractComponent {
@@ -104,7 +104,8 @@ public class DataSourceComponent extends AbstractComponent {
   }
 
   @ServiceRef(attributeId = DSFConstants.ATTR_DATASOURCE_TARGET, defaultValue = "",
-      attributePriority = PriorityConstants.PRIORITY_01, label = "DataSource service filter",
+      attributePriority = DataSourceAttributePriority.P01_DATASOURCE_TARGET,
+      label = "DataSource service filter",
       description = "The OSGi filter expression to select the right non-pooled DataSource.")
   public void setDataSource(final ServiceHolder<DataSource> serviceHolder) {
     dataSource = serviceHolder.getService();
