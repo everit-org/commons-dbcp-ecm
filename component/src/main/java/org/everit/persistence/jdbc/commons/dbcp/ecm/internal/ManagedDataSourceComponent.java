@@ -34,7 +34,6 @@ import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.component.ServiceHolder;
 import org.everit.osgi.ecm.extender.ECMExtenderConstants;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
-import org.everit.persistence.jdbc.commons.dbcp.ecm.PriorityConstants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
@@ -109,7 +108,7 @@ public class ManagedDataSourceComponent extends AbstractComponent {
   }
 
   @ServiceRef(attributeId = DSFConstants.ATTR_TRANSACTION_MANAGER_TARGET, defaultValue = "",
-      attributePriority = PriorityConstants.PRIORITY_37,
+      attributePriority = ManagedDataSourceAttributePriority.P37_TRANSACTION_MANAGER_TARGET,
       label = "TransactionManager service filter",
       description = "The OSGi filter expression to select the right transaction manager.")
   public void setTransactionManager(final ServiceHolder<TransactionManager> serviceHolder) {
@@ -118,7 +117,8 @@ public class ManagedDataSourceComponent extends AbstractComponent {
   }
 
   @ServiceRef(attributeId = DSFConstants.ATTR_XA_DATASOURCE_TARGET, defaultValue = "",
-      attributePriority = PriorityConstants.PRIORITY_01, label = "XADataSource service filter",
+      attributePriority = ManagedDataSourceAttributePriority.P01_XA_DATASOURCE_TARGET,
+      label = "XADataSource service filter",
       description = "The OSGi filter expression to select the right XADataSource.")
   public void setXaDataSource(final ServiceHolder<XADataSource> serviceHolder) {
     xaDataSource = serviceHolder.getService();
