@@ -20,6 +20,8 @@ package org.everit.persistence.jdbc.commons.dbcp.ecm.internal;
  */
 public final class DataSourceAttributePriority {
 
+  public static final int P00_SERVICE_DESCRIPTION = 0;
+
   public static final int P01_DATASOURCE_TARGET = 1;
 
   public static final int P02_DEFAULT_AUTO_COMMIT = 2;
