@@ -85,6 +85,7 @@ import org.osgi.framework.Constants;
             + "with JMX and this name is valid this name will be used in preference to any "
             + "specified by the other component."),
     @StringAttribute(attributeId = Constants.SERVICE_DESCRIPTION, defaultValue = "",
+        priority = DataSourceAttributePriority.P00_SERVICE_DESCRIPTION,
         label = "Service Description",
         description = "The description of this component configuration. It is used to easily "
             + "identify the service registered by this component.") })
