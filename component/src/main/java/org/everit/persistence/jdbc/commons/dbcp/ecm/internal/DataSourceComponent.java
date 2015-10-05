@@ -26,6 +26,7 @@ import org.everit.osgi.ecm.annotation.Activate;
 import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
+import org.everit.osgi.ecm.annotation.ManualService;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.annotation.attribute.IntegerAttribute;
 import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
@@ -52,6 +53,7 @@ import aQute.bnd.annotation.headers.ProvideCapability;
         label = "Default query timeout",
         description = "Set the default query timeout that will be used for Statements created "
             + "from this connection. null  means that the driver default will be used.") })
+@ManualService(DataSource.class)
 public class DataSourceComponent extends AbstractComponent {
 
   private BasicSimpleDataSource basicDataSource = null;

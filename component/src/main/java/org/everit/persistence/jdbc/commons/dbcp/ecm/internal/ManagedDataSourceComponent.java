@@ -29,6 +29,7 @@ import org.everit.osgi.ecm.annotation.Activate;
 import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
+import org.everit.osgi.ecm.annotation.ManualService;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.component.ServiceHolder;
@@ -49,6 +50,7 @@ import aQute.bnd.annotation.headers.ProvideCapability;
         + "XADataSource based on the commons-dbcp implementation.")
 @ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
     value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
+@ManualService(DataSource.class)
 public class ManagedDataSourceComponent extends AbstractComponent {
 
   private BasicManagedDataSource managedDataSource = null;
