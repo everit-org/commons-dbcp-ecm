@@ -24,19 +24,19 @@
   <parent>
     <groupId>org.everit.config</groupId>
     <artifactId>org.everit.config.oss</artifactId>
-    <version>7.0.1</version>
+    <version>7.3.0</version>
   </parent>
 
   <groupId>org.everit.persistence</groupId>
   <artifactId>org.everit.persistence.jdbc.commons.dbcp.ecm</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 
   <packaging>bundle</packaging>
 
   <properties>
     <projectpath>commons-dbcp-ecm</projectpath>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.7</maven.compiler.source>
+    <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
 
   <licenses>
@@ -86,8 +86,16 @@
             <Export-Package>
               org.everit.persistence.jdbc.commons.dbcp.ecm
             </Export-Package>
+            <_plugin>org.everit.osgi.ecm.bnd.ECMBndAnalyzerPlugin</_plugin>
           </instructions>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.everit.osgi</groupId>
+            <artifactId>org.everit.osgi.ecm.annotation.bnd</artifactId>
+            <version>3.0.0</version>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
@@ -98,14 +106,6 @@
       <artifactId>commons-dbcp2</artifactId>
       <version>2.1.1</version>
     </dependency>
-
-    <!-- CGLIB is only necessary because of commons-pool2. Should be removed when https://issues.apache.org/jira/browse/POOL-261 is resolved -->
-    <dependency>
-      <groupId>org.apache.servicemix.bundles</groupId>
-      <artifactId>org.apache.servicemix.bundles.cglib</artifactId>
-      <version>3.1_1</version>
-    </dependency>
-
     <dependency>
       <groupId>org.ow2.spec.ee</groupId>
       <artifactId>ow2-jta-1.1-spec</artifactId>
@@ -120,25 +120,19 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>biz.aQute.bnd</groupId>
-      <artifactId>biz.aQute.bndlib</artifactId>
-      <version>2.4.1</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>org.everit.osgi</groupId>
       <artifactId>org.everit.osgi.ecm.extender.api</artifactId>
-      <version>1.0.0</version>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.everit.osgi</groupId>
       <artifactId>org.everit.osgi.ecm.annotation</artifactId>
-      <version>2.1.0</version>
+      <version>3.0.0</version>
     </dependency>
     <dependency>
       <groupId>org.everit.osgi</groupId>
       <artifactId>org.everit.osgi.ecm.component.api</artifactId>
-      <version>2.0.0</version>
+      <version>3.0.0</version>
     </dependency>
   </dependencies>
 

@@ -20,7 +20,6 @@ import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Dictionary;
 import java.util.Map;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -30,24 +29,6 @@ import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
  * Utility to process properties.
  */
 public final class Util {
-
-  /**
-   * Add reference IDs to service property.
-   */
-  public static void addReferenceIdsToServiceProperties(final String prefix,
-      final Map<String, Object> referenceProps,
-      final Dictionary<String, Object> serviceProps) {
-
-    Object serviceId = referenceProps.get("service.id");
-    if (serviceId != null) {
-      serviceProps.put(prefix + ".service.id", serviceId);
-    }
-
-    Object servicedPid = referenceProps.get("service.pid");
-    if (servicedPid != null) {
-      serviceProps.put(prefix + ".service.pid", servicedPid);
-    }
-  }
 
   private static void applyConnectionInitSqlsOnBasicDataSource(
       final BasicDataSource basicDataSource, final Object connectionInitSqlsObject) {

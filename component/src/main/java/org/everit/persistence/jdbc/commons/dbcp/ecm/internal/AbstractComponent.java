@@ -84,7 +84,8 @@ import org.osgi.framework.Constants;
             + "register itself using this name. If another component registers this DataSource "
             + "with JMX and this name is valid this name will be used in preference to any "
             + "specified by the other component."),
-    @StringAttribute(attributeId = Constants.SERVICE_DESCRIPTION, defaultValue = "",
+    @StringAttribute(attributeId = Constants.SERVICE_DESCRIPTION,
+        defaultValue = "Pooled DataSource",
         priority = DataSourceAttributePriority.P00_SERVICE_DESCRIPTION,
         label = "Service Description",
         description = "The description of this component configuration. It is used to easily "

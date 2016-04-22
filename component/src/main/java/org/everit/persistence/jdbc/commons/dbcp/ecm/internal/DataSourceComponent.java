@@ -27,40 +27,35 @@ import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ManualService;
+import org.everit.osgi.ecm.annotation.ManualServices;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.annotation.attribute.IntegerAttribute;
 import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
-import org.everit.osgi.ecm.component.ServiceHolder;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
-import aQute.bnd.annotation.headers.ProvideCapability;
-
 /**
  * Simple component that registers non pooling DataSource as an OSGi service.
  */
+@ExtendComponent
 @Component(componentId = DSFConstants.SERVICE_FACTORY_PID_DATASOURCE,
     configurationPolicy = ConfigurationPolicy.FACTORY, label = "Everit Commons DBCP DataSource",
     description = "A pooled datasource component based on the commons-dbcp implementation.")
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
 @IntegerAttributes({
     @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
         priority = DataSourceAttributePriority.P08_DEFAULT_QUERY_TIMEOUT,
         label = "Default query timeout",
         description = "Set the default query timeout that will be used for Statements created "
             + "from this connection. null  means that the driver default will be used.") })
-@ManualService(DataSource.class)
+@ManualServices(@ManualService(DataSource.class))
 public class DataSourceComponent extends AbstractComponent {
 
   private BasicSimpleDataSource basicDataSource = null;
 
   private DataSource dataSource;
-
-  private Map<String, Object> dataSourceServiceProperties = null;
 
   private ServiceRegistration<DataSource> serviceRegistration;
 
@@ -78,8 +73,6 @@ public class DataSourceComponent extends AbstractComponent {
 
     Dictionary<String, Object> serviceProperties =
         new Hashtable<String, Object>(componentProperties);
-    Util.addReferenceIdsToServiceProperties("dataSource", dataSourceServiceProperties,
-        serviceProperties);
 
     serviceRegistration =
         componentContext.registerService(DataSource.class, basicDataSource, serviceProperties);
@@ -109,8 +102,7 @@ public class DataSourceComponent extends AbstractComponent {
       attributePriority = DataSourceAttributePriority.P01_DATASOURCE_TARGET,
       label = "DataSource service filter",
       description = "The OSGi filter expression to select the right non-pooled DataSource.")
-  public void setDataSource(final ServiceHolder<DataSource> serviceHolder) {
-    dataSource = serviceHolder.getService();
-    dataSourceServiceProperties = serviceHolder.getAttributes();
+  public void setDataSource(final DataSource dataSource) {
+    this.dataSource = dataSource;
   }
 }

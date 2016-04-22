@@ -30,40 +30,33 @@ import org.everit.osgi.ecm.annotation.Component;
 import org.everit.osgi.ecm.annotation.ConfigurationPolicy;
 import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ManualService;
+import org.everit.osgi.ecm.annotation.ManualServices;
 import org.everit.osgi.ecm.annotation.ServiceRef;
 import org.everit.osgi.ecm.component.ComponentContext;
-import org.everit.osgi.ecm.component.ServiceHolder;
-import org.everit.osgi.ecm.extender.ECMExtenderConstants;
+import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
 import org.osgi.framework.ServiceReference;
 import org.osgi.framework.ServiceRegistration;
 
-import aQute.bnd.annotation.headers.ProvideCapability;
-
 /**
  * Simple component that registers managed XADataSource as an OSGi service.
  */
+@ExtendComponent
 @Component(componentId = DSFConstants.SERVICE_FACTORY_PID_MANAGED_DATASOURCE,
     configurationPolicy = ConfigurationPolicy.FACTORY,
     label = "Everit Commons DBCP ManagedDataSource",
     description = "A managed and pooled datasource component that retrieves connections from an "
         + "XADataSource based on the commons-dbcp implementation.")
-@ProvideCapability(ns = ECMExtenderConstants.CAPABILITY_NS_COMPONENT,
-    value = ECMExtenderConstants.CAPABILITY_ATTR_CLASS + "=${@class}")
-@ManualService(DataSource.class)
+@ManualServices(@ManualService(DataSource.class))
 public class ManagedDataSourceComponent extends AbstractComponent {
 
   private BasicManagedDataSource managedDataSource = null;
 
   private ServiceRegistration<DataSource> serviceRegistration;
 
-  private Map<String, Object> tmServiceProperties = null;
-
   private TransactionManager transactionManager;
 
   private XADataSource xaDataSource;
-
-  private Map<String, Object> xaDataSourceServiceProperties = null;
 
   /**
    * Component activator method.
@@ -80,10 +73,6 @@ public class ManagedDataSourceComponent extends AbstractComponent {
 
     Dictionary<String, Object> serviceProperties =
         new Hashtable<String, Object>(componentProperties);
-    Util.addReferenceIdsToServiceProperties("xaDataSource", xaDataSourceServiceProperties,
-        serviceProperties);
-    Util.addReferenceIdsToServiceProperties("transactionManager", tmServiceProperties,
-        serviceProperties);
 
     serviceRegistration =
         componentContext.registerService(DataSource.class, managedDataSource, serviceProperties);
@@ -113,17 +102,15 @@ public class ManagedDataSourceComponent extends AbstractComponent {
       attributePriority = ManagedDataSourceAttributePriority.P37_TRANSACTION_MANAGER_TARGET,
       label = "TransactionManager service filter",
       description = "The OSGi filter expression to select the right transaction manager.")
-  public void setTransactionManager(final ServiceHolder<TransactionManager> serviceHolder) {
-    transactionManager = serviceHolder.getService();
-    tmServiceProperties = serviceHolder.getAttributes();
+  public void setTransactionManager(final TransactionManager transactionManager) {
+    this.transactionManager = transactionManager;
   }
 
   @ServiceRef(attributeId = DSFConstants.ATTR_XA_DATASOURCE_TARGET, defaultValue = "",
       attributePriority = ManagedDataSourceAttributePriority.P01_XA_DATASOURCE_TARGET,
       label = "XADataSource service filter",
       description = "The OSGi filter expression to select the right XADataSource.")
-  public void setXaDataSource(final ServiceHolder<XADataSource> serviceHolder) {
-    xaDataSource = serviceHolder.getService();
-    xaDataSourceServiceProperties = serviceHolder.getAttributes();
+  public void setXaDataSource(final XADataSource xaDataSource) {
+    this.xaDataSource = xaDataSource;
   }
 }
