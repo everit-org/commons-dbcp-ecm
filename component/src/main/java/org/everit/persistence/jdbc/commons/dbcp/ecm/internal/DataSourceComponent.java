@@ -29,8 +29,6 @@ import org.everit.osgi.ecm.annotation.Deactivate;
 import org.everit.osgi.ecm.annotation.ManualService;
 import org.everit.osgi.ecm.annotation.ManualServices;
 import org.everit.osgi.ecm.annotation.ServiceRef;
-import org.everit.osgi.ecm.annotation.attribute.IntegerAttribute;
-import org.everit.osgi.ecm.annotation.attribute.IntegerAttributes;
 import org.everit.osgi.ecm.component.ComponentContext;
 import org.everit.osgi.ecm.extender.ExtendComponent;
 import org.everit.persistence.jdbc.commons.dbcp.ecm.DSFConstants;
@@ -44,12 +42,6 @@ import org.osgi.framework.ServiceRegistration;
 @Component(componentId = DSFConstants.SERVICE_FACTORY_PID_DATASOURCE,
     configurationPolicy = ConfigurationPolicy.FACTORY, label = "Everit Commons DBCP DataSource",
     description = "A pooled datasource component based on the commons-dbcp implementation.")
-@IntegerAttributes({
-    @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
-        priority = DataSourceAttributePriority.P08_DEFAULT_QUERY_TIMEOUT,
-        label = "Default query timeout",
-        description = "Set the default query timeout that will be used for Statements created "
-            + "from this connection. null  means that the driver default will be used.") })
 @ManualServices(@ManualService(DataSource.class))
 public class DataSourceComponent extends AbstractComponent {
 

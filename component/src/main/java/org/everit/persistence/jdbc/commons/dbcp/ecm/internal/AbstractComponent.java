@@ -184,6 +184,11 @@ import org.osgi.framework.Constants;
             + "pooled connection and retain the most recent stack trace to aid debugging of "
             + "abandoned connections.") })
 @IntegerAttributes({
+    @IntegerAttribute(attributeId = DSFConstants.ATTR_DEFAULT_QUERY_TIMEOUT, optional = true,
+        priority = DataSourceAttributePriority.P08_DEFAULT_QUERY_TIMEOUT,
+        label = "Default query timeout",
+        description = "Set the default query timeout (in seconds) that will be used for Statements "
+            + "created from this connection. null  means that the driver default will be used."),
     @IntegerAttribute(attributeId = DSFConstants.ATTR_MAX_TOTAL,
         defaultValue = GenericObjectPoolConfig.DEFAULT_MAX_TOTAL,
         priority = DataSourceAttributePriority.P09_MAX_TOTAL, label = "Max. total",
